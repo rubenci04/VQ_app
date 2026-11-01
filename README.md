@@ -7,9 +7,9 @@ Aplicación comunitaria independiente para Villa Quinteros, Tucumán. Basada en 
 - La portada usa `fondo.jpeg` y el encabezado, favicon e iconos PWA usan `logo _vq.jpg`, ambos aportados para Villa Quinteros. `npm run brand:build` regenera los derivados.
 - Las noticias de la Comuna se muestran desde [su Facebook](https://www.facebook.com/comunavillaquinteros/) mediante el visor oficial y un enlace directo. Facebook puede bloquear el visor según el navegador o sus ajustes.
 - La carga automática de publicaciones en la base de datos requiere acceso a Meta Graph API y permisos de la página. No está activada.
-- Colectivos: se derivan de los horarios de la app original únicamente los recorridos que incluyen una hora explícita en Villa Quinteros; los horarios aproximados conservan `~`. La fuente figura en cada recorrido y se recomienda confirmar con la empresa.
+- Colectivos: el catálogo incluye las 20 localidades de la fuente original. Se muestran horarios para 14, con Villa Quinteros como origen predeterminado. Los recorridos hacia el sur unen tramos que coinciden en empresa, día, tipo y hora en Río Seco; esa coincidencia no garantiza que sea el mismo vehículo. Seis localidades no tienen horarios confirmables desde Villa Quinteros en la fuente importada y permanecen visibles con enlace a la fuente. Los horarios aproximados conservan `~`.
 - El mapa reúne lugares de Villa Quinteros identificados en OpenStreetMap con coordenadas y fuente en cada ficha. Dirección, teléfono u horarios no confirmados aparecen como pendientes.
-- «Nuestro pueblo» contiene reseñas documentadas sobre el ferrocarril, el ingenio San Ramón, la pueblada de 1969 y Frecuencia IES, con enlaces a las fuentes. La app enlaza las radios San Martín FM y Frecuencia IES 97.7 (Facebook aportado por el usuario).
+- «Nuestro pueblo» contiene reseñas documentadas sobre el ferrocarril, el ingenio San Ramón, la pueblada de 1969, Frecuencia IES, la festividad de San Ramón (31 de agosto), el desfile del Día de la Bandera (20 de junio) y el aniversario de la fundación (26 de noviembre), con enlaces a las fuentes. La app enlaza las radios San Martín FM y Frecuencia IES 97.7 (Facebook aportado por el usuario).
 
 ## Desarrollo y vista previa
 

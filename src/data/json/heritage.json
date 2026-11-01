@@ -43,5 +43,38 @@
       { "kind": "documentado", "text": "El Ministerio de Educación identifica a Frecuencia IES como emisora de Villa Quinteros en 97.7 MHz.", "source": { "label": "Ministerio de Educación de Tucumán", "url": "https://des-tuc.infd.edu.ar/sitio/el-nivel-superior-emitio-su-primer-programa-radial-para-estudiantes-durante-la-cuarentena/" } }
     ],
     "pendingDetails": []
+  },
+  {
+    "id": "festividad-san-ramon",
+    "title": "Festividad de San Ramón",
+    "summary": "El 31 de agosto, Villa Quinteros recuerda a San Ramón y su historia azucarera.",
+    "icon": "church",
+    "claims": [
+      { "kind": "documentado", "text": "El calendario de celebraciones de Villa Quinteros registra la fiesta religiosa de San Ramón en agosto.", "source": { "label": "Calendario de Villa Quinteros, Tucutur", "url": "https://www.tucutur.com.ar/Localidades/viquinteros/index.php?page=cale&section=seccion1" } },
+      { "kind": "documentado", "text": "El día de San Ramón es el 31 de agosto. Ese mismo día de 1967 cerró el ingenio San Ramón, una coincidencia que permanece en la memoria local.", "source": { "label": "La Gaceta, memoria del ingenio San Ramón", "url": "https://www.lagaceta.com.ar/nota/696454/economia/tragica-explosion-58-fue-premonitaria-suerte-estaba-echada.html" } }
+    ],
+    "pendingDetails": ["Programa local de la próxima celebración, a confirmar cada año."]
+  },
+  {
+    "id": "desfile-dia-bandera",
+    "title": "Desfile del Día de la Bandera",
+    "summary": "Cada 20 de junio, el desfile cívico escolar reúne a instituciones y vecinos.",
+    "icon": "flag",
+    "claims": [
+      { "kind": "documentado", "text": "El 20 de junio se celebra en Villa Quinteros el desfile por el Día de la Bandera. Hay registros publicados de la participación de escuelas de la localidad y pueblos vecinos en distintos años.", "source": { "label": "Vientos Tucumanos, desfile de 2024", "url": "https://vientostucumanos.com.ar/contenido/18734/villa-quinteros-el-pueblo-vivio-un-emotivo-acto-y-homenaje-al-gral-belgrano-con-" } },
+      { "kind": "documentado", "text": "Un registro de 2018 describe el desfile del 20 de junio como una tradición de Villa Quinteros.", "source": { "label": "El Tucumano, desfile de 2018", "url": "https://www.eltucumano.com/noticia/actualidad/249428/foto-dia-bandera-llena-esperanza.html" } }
+    ],
+    "pendingDetails": ["Horario y recorrido del próximo desfile, a confirmar cada año."]
+  },
+  {
+    "id": "aniversario-villa-quinteros",
+    "title": "Cumpleaños de Villa Quinteros",
+    "summary": "El pueblo celebra su aniversario cada 26 de noviembre.",
+    "icon": "star",
+    "claims": [
+      { "kind": "documentado", "text": "La fundación de Villa Quinteros se formalizó el 26 de noviembre de 1888 por decreto del gobernador Lídoro José Quinteros.", "source": { "label": "LV12, aniversario de Villa Quinteros", "url": "https://www.lv12.com.ar/villa-quinteros/villa-quinteros-cumple-133-anos-su-fundacion-n107204" } },
+      { "kind": "documentado", "text": "El 26 de noviembre se conmemora cada año el aniversario del pueblo.", "source": { "label": "Calendario de Villa Quinteros, Tucutur", "url": "https://www.tucutur.com.ar/Localidades/viquinteros/index.php?page=cale&section=seccion1" } }
+    ],
+    "pendingDetails": ["Programa de festejos del próximo aniversario, a confirmar con la Comuna."]
   }
 ]

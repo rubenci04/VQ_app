@@ -65,7 +65,7 @@ export function BusSearchForm({ query, localities, companies, serviceTypes, isFa
           {localities.map((l) => (
             <option key={l.id} value={l.id}>
               {l.name}
-              {l.status === 'sin-datos' ? ' · sin servicio directo' : ''}
+              {l.status === 'sin-datos' ? ' · sin horario cargado' : ''}
             </option>
           ))}
         </select>

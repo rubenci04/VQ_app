@@ -14,7 +14,9 @@ describe('contenido de Villa Quinteros', () => {
     })
     expect(places.filter((place) => place.location)).toHaveLength(5)
     expect(places.find((place) => place.id === 'comuna-villa-quinteros')?.pending).toContain('location')
-    expect(heritage.map((section) => section.id)).toContain('pueblada-1969')
+    expect(heritage.map((section) => section.id)).toEqual(expect.arrayContaining([
+      'pueblada-1969', 'festividad-san-ramon', 'desfile-dia-bandera', 'aniversario-villa-quinteros',
+    ]))
   })
 
   it('ofrece horarios en ambos sentidos con Villa Quinteros como cabecera', async () => {
@@ -23,5 +25,9 @@ describe('contenido de Villa Quinteros', () => {
     expect(transport.services.some((service) => service.originStopId === HUB_ID)).toBe(true)
     expect(transport.services.some((service) => service.destinationStopId === HUB_ID)).toBe(true)
     expect(transport.localities.some((locality) => locality.id === 'monteros')).toBe(true)
+    expect(transport.localities).toHaveLength(20)
+    expect(transport.services.some((service) => service.localityId === 'concepcion' && service.direction === 'from-rio-seco' && service.routeName?.includes('vía Río Seco'))).toBe(true)
+    expect(transport.services.some((service) => service.localityId === 'aguilares' && service.direction === 'to-rio-seco' && service.routeName?.includes('vía Río Seco'))).toBe(true)
+    expect(transport.localities.find((locality) => locality.id === 'lules')?.status).toBe('sin-datos')
   })
 })

@@ -3,16 +3,13 @@ import { EmptyState } from '@/components/shared/States'
 import { ExternalLink } from '@/components/shared/ExternalLink'
 import { LINKS } from '@/config/links'
 
-/**
- * La fuente no registra viajes directos para este tramo. No se inventan servicios ni combinaciones:
- * puede requerir un transbordo (por ejemplo, en Concepción o Monteros).
- */
+/** La fuente importada no permite confirmar un horario para este tramo. */
 export function NoSchedules({ localityName, referenceUrl }: { localityName: string; referenceUrl?: string }) {
   return (
-    <EmptyState icon={BusFront} title={`Sin servicio directo entre Villa Quinteros y ${localityName}`}>
+    <EmptyState icon={BusFront} title={`Sin horario cargado entre Villa Quinteros y ${localityName}`}>
       <p>
-        Los horarios que tenemos no incluyen viajes directos para este recorrido. Puede requerir combinar con otro colectivo, por ejemplo en
-        Concepción o Monteros. No mostramos combinaciones que no estén confirmadas.
+        La fuente importada no aporta un recorrido con horarios compatibles para este trayecto desde Villa Quinteros.
+        Puede requerir combinar o usar otra empresa. Consultá la fuente y confirmá con la empresa antes de viajar.
       </p>
       <p className="mt-3">
         Podés consultar la fuente original:

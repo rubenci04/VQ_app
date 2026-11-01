@@ -21,6 +21,7 @@ export function ServiceCard({ occurrence: o, companies, stops, nowMinutes }: Pro
   const nextDay = o.departureAbs >= MINUTES_PER_DAY
   const untilDeparture = nowMinutes === undefined ? undefined : o.departureAbs - nowMinutes
   const approximate = s.precision === 'approximate'
+  const viaRioSeco = s.routeName?.includes('vía Río Seco')
 
   return (
     <Card className="animate-rise flex flex-col gap-3">
@@ -38,9 +39,9 @@ export function ServiceCard({ occurrence: o, companies, stops, nowMinutes }: Pro
             </p>
           )}
         </div>
-        <Badge tone={approximate ? 'warning' : 'info'}>
-          {approximate ? <CalendarClock className="size-3.5" aria-hidden /> : <BadgeCheck className="size-3.5" aria-hidden />}
-          {approximate ? 'Aproximado' : 'Confirmado'}
+        <Badge tone={approximate || viaRioSeco ? 'warning' : 'info'}>
+          {approximate || viaRioSeco ? <CalendarClock className="size-3.5" aria-hidden /> : <BadgeCheck className="size-3.5" aria-hidden />}
+          {viaRioSeco ? 'Tramos unidos' : approximate ? 'Aproximado' : 'Confirmado'}
         </Badge>
       </div>
 
@@ -57,6 +58,13 @@ export function ServiceCard({ occurrence: o, companies, stops, nowMinutes }: Pro
           </span>
         )}
       </p>
+
+      {viaRioSeco && (
+        <p className="flex gap-2 rounded-xl bg-warning-soft p-2.5 text-xs text-warning">
+          <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
+          Horarios de tramos coincidentes en Río Seco. Confirmá con la empresa si continúa el mismo colectivo o si debés combinar.
+        </p>
+      )}
 
       {approximate && s.observations && (
         <p className="flex gap-2 rounded-xl bg-warning-soft p-2.5 text-xs text-warning">
