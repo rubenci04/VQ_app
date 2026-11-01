@@ -49,7 +49,7 @@ function Shell() {
       <header className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-2">
           <Link to="/admin" className="flex items-center gap-2 font-display text-lg font-extrabold" aria-label="Panel de administración">
-            <img src="/brand/logo-mark-v2.png" alt="" className="h-8 w-auto rounded-md" width={40} height={32} />
+            <img src="/brand/logo-mark-v3.png" alt="Logo de Villa Quinteros" className="size-10 rounded-md bg-white object-contain p-1" width={40} height={40} />
             <span>
               Panel <span className="text-primary">Villa Quinteros</span>
             </span>

@@ -31,7 +31,7 @@ export function LoginPage() {
     <div className="grid min-h-dvh place-items-center bg-background p-4">
       <Card className="w-full max-w-sm space-y-4">
         <div className="flex items-center gap-3">
-          <img src="/brand/logo-mark-v2.png" alt="" className="h-10 w-auto" width={50} height={40} />
+          <img src="/brand/logo-mark-v3.png" alt="Logo de Villa Quinteros" className="size-12 rounded-md bg-white object-contain p-1" width={48} height={48} />
           <div>
             <h1 className="font-display text-xl font-extrabold leading-tight">Acceso al panel</h1>
             <p className="text-sm text-muted-foreground">Solo para el equipo de VQ App.</p>

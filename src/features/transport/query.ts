@@ -16,7 +16,7 @@ export interface BusQuery {
 
 export const DEFAULT_QUERY: BusQuery = {
   direction: 'from-rio-seco',
-  localityId: 'concepcion',
+  localityId: 'monteros',
   dayType: 'auto',
   mode: 'next',
 }

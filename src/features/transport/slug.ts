@@ -7,4 +7,4 @@ export const slugify = (s: string): string =>
     .replace(/^-|-$/g, '')
 
 export const HUB_NAME = 'Villa Quinteros'
-export const HUB_ID = 'rio-seco'
+export const HUB_ID = 'villa-quinteros'

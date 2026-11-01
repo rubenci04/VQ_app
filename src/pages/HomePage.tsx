@@ -226,7 +226,7 @@ function Radios() {
                   <Button asChild size="sm">
                     <a href={r.siteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Escuchar ${r.name} ${r.frequency} (abre el sitio de la radio)`}>
                       <Headphones className="size-4" aria-hidden />
-                      Escuchar
+                      Abrir sitio
                     </a>
                   </Button>
                 </Card>

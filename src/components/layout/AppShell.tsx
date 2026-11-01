@@ -11,7 +11,7 @@ import { useTheme } from '@/services/theme'
 function Brand() {
   return (
     <NavLink to="/" className="flex items-center gap-2.5" aria-label="VQ App, ir al inicio">
-      <img src="/brand/logo-mark-v2.png" alt="" className="h-9 w-auto rounded-lg dark:bg-white dark:p-0.5" width={45} height={36} />
+      <img src="/brand/logo-mark-v3.png" alt="Logo de Villa Quinteros" className="size-12 rounded-xl bg-white object-contain p-1" width={48} height={48} />
       <span className="font-display text-lg font-extrabold leading-none">
         VQ <span className="text-primary">App</span>
       </span>

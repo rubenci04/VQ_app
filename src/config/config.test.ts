@@ -7,8 +7,8 @@ import { allExternalLinks, LINKS } from './links'
 describe('registro de enlaces externos', () => {
   it('contiene las fuentes reales del proyecto', () => {
     expect(LINKS.comuna.facebook).toBe('https://www.facebook.com/comunavillaquinteros/')
-    expect(LINKS.radios.activa).toBe('https://www.activa1031.fmmiradio.com/')
-    expect(LINKS.radios.sudamericana).toBe('https://www.sudamericana893.com.ar/radio.php')
+    expect(LINKS.radios.sanMartin).toBe('https://sanmartinfm.com.ar/')
+    expect(LINKS.radios.frecuenciaIes).toBe('https://iestucma.wixsite.com/radiosiestucuman/nosotros')
     expect(LINKS.transport.concepcion).toBe('https://colectivostucuman.com.ar/')
   })
   it('todos son URLs https válidas', () => {

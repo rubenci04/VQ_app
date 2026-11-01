@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "ferrocarril-y-origenes",
+    "title": "El ferrocarril y los orígenes",
+    "summary": "Villa Quinteros creció junto a una estación ferroviaria a fines del siglo XIX.",
+    "icon": "landmark",
+    "featured": true,
+    "claims": [
+      { "kind": "documentado", "text": "Un estudio histórico ubica el desarrollo de Villa Quinteros alrededor de una estación del ferrocarril provincial, que acompañó la expansión azucarera hacia el sur de Tucumán a fines del siglo XIX.", "source": { "label": "Santos Lepera y Sánchez, Cuadernos de Historia (2019)", "url": "https://dialnet.unirioja.es/descarga/articulo/9136445.pdf" } },
+      { "kind": "documentado", "text": "La localidad consolidó un perfil comercial y agrícola vinculado al cultivo de caña de azúcar.", "source": { "label": "Santos Lepera y Sánchez, Cuadernos de Historia (2019)", "url": "https://dialnet.unirioja.es/descarga/articulo/9136445.pdf" } }
+    ],
+    "pendingDetails": ["Fotografías y documentos de la antigua estación con crédito y permiso de publicación."]
+  },
+  {
+    "id": "ingenio-san-ramon",
+    "title": "El ingenio San Ramón",
+    "summary": "La industria azucarera marcó la economía y la vida social de la villa.",
+    "icon": "factory",
+    "claims": [
+      { "kind": "documentado", "text": "Desde 1925 funcionó un ingenio en las inmediaciones de Villa Quinteros. Tras varios cambios de propietarios, la firma Simón y Cía. lo remodeló en 1935 con el nombre San Ramón.", "source": { "label": "Santos Lepera y Sánchez, Cuadernos de Historia (2019)", "url": "https://dialnet.unirioja.es/descarga/articulo/9136445.pdf" } },
+      { "kind": "documentado", "text": "El cierre del ingenio San Ramón el 31 de agosto de 1967 afectó gravemente a las familias trabajadoras de la localidad.", "source": { "label": "Kotler, Historia Regional (2013)", "url": "https://historiaregional.org/ojs/index.php/historiaregional/article/download/33/165?inline=1" } }
+    ],
+    "pendingDetails": ["Ubicación exacta de las antiguas instalaciones para incorporarlas al mapa."]
+  },
+  {
+    "id": "pueblada-1969",
+    "title": "La pueblada de 1969",
+    "summary": "La comunidad se movilizó por el trabajo y contra el desmantelamiento del ingenio.",
+    "icon": "flag",
+    "claims": [
+      { "kind": "documentado", "text": "El 9 de abril de 1969, ex trabajadores del ingenio y familias de Villa Quinteros protestaron junto a la ruta 38 contra el desmantelamiento de la fábrica y la falta de fuentes de trabajo. La protesta fue reprimida por fuerzas policiales.", "source": { "label": "Kotler, Historia Regional (2013)", "url": "https://historiaregional.org/ojs/index.php/historiaregional/article/download/33/165?inline=1" } },
+      { "kind": "documentado", "text": "La Comisión Pro-Defensa de Villa Quinteros organizó reclamos y movilizaciones durante 1968 y 1969.", "source": { "label": "Santos Lepera y Sánchez, Cuadernos de Historia (2019)", "url": "https://dialnet.unirioja.es/descarga/articulo/9136445.pdf" } }
+    ],
+    "pendingDetails": ["Testimonios, fotografías y documentos locales con autorización de publicación."]
+  },
+  {
+    "id": "frecuencia-ies",
+    "title": "Frecuencia IES y la comunidad",
+    "summary": "La radio socioeducativa del IES Villa Quinteros abrió un espacio para estudiantes y vecinos.",
+    "icon": "music",
+    "claims": [
+      { "kind": "documentado", "text": "El 4 de abril de 2015 se inauguraron oficialmente cuatro radios socioeducativas de institutos superiores de Tucumán; el acto se realizó en el IES Villa Quinteros, sede de Frecuencia IES.", "source": { "label": "Ministerio de Educación de Tucumán", "url": "https://des-tuc.infd.edu.ar/sitio/radios-ies/" } },
+      { "kind": "documentado", "text": "El Ministerio de Educación identifica a Frecuencia IES como emisora de Villa Quinteros en 97.7 MHz.", "source": { "label": "Ministerio de Educación de Tucumán", "url": "https://des-tuc.infd.edu.ar/sitio/el-nivel-superior-emitio-su-primer-programa-radial-para-estudiantes-durante-la-cuarentena/" } }
+    ],
+    "pendingDetails": []
+  }
+]

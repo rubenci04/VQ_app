@@ -64,8 +64,8 @@ export function AboutPage() {
           <CardTitle>Fuentes</CardTitle>
           <ul className="list-inside list-disc space-y-1">
             <li><ExternalLink href={LINKS.comuna.facebook} className="text-accent underline">Comuna de Villa Quinteros en Facebook</ExternalLink></li>
-            <li><ExternalLink href={LINKS.radios.activa} className="text-accent underline">Radio Activa 103.1</ExternalLink></li>
-            <li><ExternalLink href={LINKS.radios.sudamericana} className="text-accent underline">Radio Sudamericana 89.3</ExternalLink></li>
+            <li><ExternalLink href={LINKS.radios.sanMartin} className="text-accent underline">San Martín FM</ExternalLink></li>
+            <li><ExternalLink href={LINKS.radios.frecuenciaIes} className="text-accent underline">FM Frecuencia IES 97.7</ExternalLink></li>
             <li><ExternalLink href={LINKS.transport.reference} className="text-accent underline">Colectivos Tucumán (referencia de horarios)</ExternalLink></li>
           </ul>
         </Card>

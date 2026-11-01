@@ -4,11 +4,12 @@ Aplicación comunitaria independiente para Villa Quinteros, Tucumán. Basada en 
 
 ## Estado del contenido
 
-- La portada usa `fondo.jpeg`, aportada para Villa Quinteros.
-- El logo definitivo aún no está en la carpeta. Se usa una marca temporal «VQ». Cuando llegue, guardarlo como `src/logo-vq.png` y ejecutar `npm run brand:build`.
+- La portada usa `fondo.jpeg` y el encabezado, favicon e iconos PWA usan `logo _vq.jpg`, ambos aportados para Villa Quinteros. `npm run brand:build` regenera los derivados.
 - Las noticias de la Comuna se muestran desde [su Facebook](https://www.facebook.com/comunavillaquinteros/) mediante el visor oficial y un enlace directo. Facebook puede bloquear el visor según el navegador o sus ajustes.
 - La carga automática de publicaciones en la base de datos requiere acceso a Meta Graph API y permisos de la página. No está activada.
-- Los horarios, lugares, reseñas y fotografías específicos de Río Seco se retiraron. Las secciones siguen disponibles con estados vacíos hasta verificar datos de Villa Quinteros.
+- Colectivos: se derivan de los horarios de la app original únicamente los recorridos que incluyen una hora explícita en Villa Quinteros; los horarios aproximados conservan `~`. La fuente figura en cada recorrido y se recomienda confirmar con la empresa.
+- El mapa reúne lugares de Villa Quinteros identificados en OpenStreetMap con coordenadas y fuente en cada ficha. Dirección, teléfono u horarios no confirmados aparecen como pendientes.
+- «Nuestro pueblo» contiene reseñas documentadas sobre el ferrocarril, el ingenio San Ramón, la pueblada de 1969 y Frecuencia IES, con enlaces a las fuentes. La app enlaza las radios San Martín FM y Frecuencia IES 97.7 (Facebook aportado por el usuario).
 
 ## Desarrollo y vista previa
 
@@ -21,7 +22,7 @@ npm run build
 
 La compilación usa datos locales por defecto. Para el despliegue conectado a GitHub en Cloudflare Workers, usar el comando de compilación `npm run build` y el de despliegue `npx wrangler deploy`. `wrangler.jsonc` publica los archivos de `dist` sin exigir D1. Requiere Node 22 o superior. El visor de Facebook no necesita credenciales.
 
-`npm run lint` y `npm run build` pasan. La suite original de Río Seco conserva pruebas de sus horarios, lugares, fotos y textos; esas pruebas deben adaptarse al nuevo catálogo antes de usarse como control de contenido de Villa Quinteros.
+La suite original de Río Seco conserva pruebas de sus horarios, lugares, fotos y textos; esas pruebas deben adaptarse al nuevo catálogo antes de usarse como control de contenido de Villa Quinteros.
 
 ## API, panel y Cloudflare Workers
 

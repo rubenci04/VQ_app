@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card'
 import { useData } from '@/data/repository/DataContext'
 import type { Radio } from '@/domain/types'
 
-const GRADIENTS = ['from-[#0b6b97] to-[#073049]', 'from-[#b73b08] to-[#6b2203]']
+const GRADIENTS = ['from-[#006eae] to-[#073b60]', 'from-[#b95e00] to-[#713b00]']
 
 function RadioCard({ radio, index }: { radio: Radio; index: number }) {
   return (
@@ -21,9 +21,9 @@ function RadioCard({ radio, index }: { radio: Radio; index: number }) {
       <div className="flex items-center justify-between gap-3 p-4">
         <p className="text-sm text-muted-foreground">{radio.tagline}</p>
         <Button asChild>
-          <a href={radio.siteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Escuchar ${radio.name} ${radio.frequency} (abre el sitio de la radio)`}>
+          <a href={radio.siteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${radio.name} ${radio.frequency} (sitio externo)`}>
             <Headphones className="size-4" aria-hidden />
-            Escuchar
+            Abrir sitio
           </a>
         </Button>
       </div>

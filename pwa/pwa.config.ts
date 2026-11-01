@@ -13,21 +13,21 @@ export const manifest = {
   display: 'standalone',
   orientation: 'portrait',
   background_color: '#f3fafd',
-  theme_color: '#0b6b97',
+  theme_color: '#006eae',
   categories: ['news', 'travel', 'utilities'],
   // Compartir un enlace (p. ej. desde la app de Facebook) hacia la PWA instalada abre la importación asistida del panel.
   // Requiere sesión: sin ella se muestra el acceso al panel y, al ingresar, los datos compartidos siguen en la dirección.
   share_target: { action: '/admin/fuentes', method: 'GET', params: { title: 'title', text: 'text', url: 'url' } },
   icons: [
-    { src: '/icons/icon-192-v2.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-    { src: '/icons/icon-512-v2.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-    { src: '/icons/icon-maskable-512-v2.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+    { src: '/icons/icon-192-v3.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+    { src: '/icons/icon-512-v3.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+    { src: '/icons/icon-maskable-512-v3.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
   ],
 } as const
 
 export const pwaOptions: Partial<VitePWAOptions> = {
   registerType: 'autoUpdate',
-  includeAssets: ['favicon-32-v2.png', 'favicon-48-v2.png', 'icons/apple-touch-icon-v2.png', 'brand/logo-v2.png', 'brand/logo-mark-v2.png', 'brand/entrada.webp'],
+  includeAssets: ['favicon-32-v3.png', 'favicon-48-v3.png', 'icons/apple-touch-icon-v3.png', 'brand/logo-v3.png', 'brand/logo-mark-v3.png', 'brand/entrada.webp'],
   manifest: manifest as unknown as VitePWAOptions['manifest'],
   workbox: {
     globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],

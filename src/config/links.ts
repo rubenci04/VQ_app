@@ -4,8 +4,8 @@ export const LINKS = {
     facebook: 'https://www.facebook.com/comunavillaquinteros/',
   },
   radios: {
-    activa: 'https://www.activa1031.fmmiradio.com/',
-    sudamericana: 'https://www.sudamericana893.com.ar/radio.php',
+    sanMartin: 'https://sanmartinfm.com.ar/',
+    frecuenciaIes: 'https://www.facebook.com/FrecuenciaIES',
   },
   transport: {
     reference: 'https://colectivostucuman.com.ar/',
@@ -13,7 +13,7 @@ export const LINKS = {
   },
 } as const
 
-/** Enlaces a mapas externos (no hay mapa propio todavía). El texto se codifica; nunca se envían datos personales. */
+/** Enlaces a mapas externos. El texto se codifica; nunca se envían datos personales. */
 const enc = encodeURIComponent
 export const mapLinks = {
   search: (query: string) => `https://www.google.com/maps/search/?api=1&query=${enc(query)}`,

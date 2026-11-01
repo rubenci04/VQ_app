@@ -1,16 +1,16 @@
 [
   {
-    "id": "activa-1031",
-    "name": "Radio Activa",
-    "frequency": "103.1 FM",
-    "siteUrl": "https://www.activa1031.fmmiradio.com/",
-    "tagline": "Sitio oficial de la emisora"
+    "id": "san-martin-fm",
+    "name": "San Martín FM",
+    "frequency": "En línea",
+    "siteUrl": "https://sanmartinfm.com.ar/",
+    "tagline": "Radio compartida por la comunidad; el sitio ofrece transmisión en vivo. Frecuencia pendiente de confirmar."
   },
   {
-    "id": "sudamericana-893",
-    "name": "Radio Sudamericana",
-    "frequency": "89.3 FM",
-    "siteUrl": "https://www.sudamericana893.com.ar/radio.php",
-    "tagline": "Sitio oficial de la emisora"
+    "id": "frecuencia-ies-977",
+    "name": "FM Frecuencia IES",
+    "frequency": "97.7 FM",
+    "siteUrl": "https://www.facebook.com/FrecuenciaIES",
+    "tagline": "Radio socioeducativa del IES Villa Quinteros. Facebook oficial compartido por la comunidad; frecuencia documentada por el Ministerio de Educación."
   }
 ]

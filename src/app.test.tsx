@@ -99,8 +99,8 @@ describe('radios y enlaces externos', () => {
     renderApp('/radios')
     const activa = await screen.findByRole('link', { name: /Escuchar Radio Activa 103.1/ })
     const sud = screen.getByRole('link', { name: /Escuchar Radio Sudamericana 89.3/ })
-    expect(activa).toHaveAttribute('href', LINKS.radios.activa)
-    expect(sud).toHaveAttribute('href', LINKS.radios.sudamericana)
+    expect(activa).toHaveAttribute('href', LINKS.radios.sanMartin)
+    expect(sud).toHaveAttribute('href', LINKS.radios.frecuenciaIes)
     for (const a of [activa, sud]) {
       expect(a).toHaveAttribute('target', '_blank')
       expect(a.getAttribute('rel')).toContain('noopener')

@@ -7,7 +7,7 @@ import { MINUTES_PER_DAY } from './time'
 export const AFTER_MIDNIGHT_BEFORE_MINUTES = 4 * 60
 
 export const APPROXIMATE_NOTE =
-  'Horario aproximado: en algunos servicios el colectivo para en Villa Quinteros aunque no figura en la grilla oficial de la empresa. Conviene esperarlo unos minutos antes.'
+  'Horario aproximado según la fuente. Conviene esperar el colectivo unos minutos antes y confirmar con la empresa.'
 
 const parse = (hhmm: string) => {
   const [h, m] = hhmm.replace('~', '').split(':').map(Number)

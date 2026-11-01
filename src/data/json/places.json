@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "id": "ies-villa-quinteros",
+    "name": "Instituto de Enseñanza Superior Villa Quinteros",
+    "category": "educacion",
+    "address": "Av. Libertador s/n, Villa Quinteros",
+    "description": "Sede de la radio socioeducativa Frecuencia IES.",
+    "links": [{ "label": "Frecuencia IES en Facebook", "url": "https://www.facebook.com/FrecuenciaIES" }],
+    "location": { "lat": -27.25186, "lng": -65.54851, "accuracy": "zona", "source": { "label": "OpenStreetMap, way 204880061", "url": "https://www.openstreetmap.org/way/204880061", "date": "2026-11-01" } },
+    "sources": [{ "label": "Ministerio de Educación de Tucumán", "url": "https://des-tuc.infd.edu.ar/sitio/6to-encuentro-de-radios-socioeducativas-de-tucuman/" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["phone", "hours"],
+    "dataNote": "El punto representa el área del edificio registrada en OpenStreetMap."
+  },
+  {
+    "id": "caps-villa-quinteros",
+    "name": "CAPS Villa Quinteros",
+    "category": "salud",
+    "address": "Jardín de la República, Villa Quinteros",
+    "location": { "lat": -27.25401, "lng": -65.55081, "accuracy": "zona", "source": { "label": "OpenStreetMap, way 204886158", "url": "https://www.openstreetmap.org/way/204886158", "date": "2026-11-01" } },
+    "sources": [{ "label": "OpenStreetMap vía Mapcarta", "url": "https://mapcarta.com/es/W204886158" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["phone", "hours"],
+    "dataNote": "Teléfono y horario publicados en mapas de terceros; pendiente de confirmar con el centro de salud."
+  },
+  {
+    "id": "comisaria-villa-quinteros",
+    "name": "Comisaría de Villa Quinteros",
+    "category": "policia",
+    "location": { "lat": -27.25416, "lng": -65.55056, "accuracy": "zona", "source": { "label": "OpenStreetMap, way 204886159", "url": "https://www.openstreetmap.org/way/204886159", "date": "2026-11-01" } },
+    "sources": [{ "label": "OpenStreetMap vía Mapcarta", "url": "https://mapcarta.com/es/W204886159" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["address", "phone", "hours"]
+  },
+  {
+    "id": "iglesia-nuestra-senora-del-valle",
+    "name": "Iglesia Nuestra Señora del Valle",
+    "category": "iglesias",
+    "address": "Av. Libertador, Villa Quinteros",
+    "location": { "lat": -27.25221, "lng": -65.5484, "accuracy": "zona", "source": { "label": "OpenStreetMap, way 204885884", "url": "https://www.openstreetmap.org/way/204885884", "date": "2026-11-01" } },
+    "sources": [{ "label": "OpenStreetMap vía Mapcarta", "url": "https://mapcarta.com/es/W204885884" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["phone", "hours"]
+  },
+  {
+    "id": "jesus-divina-misericordia",
+    "name": "Iglesia Jesús de la Divina Misericordia",
+    "category": "iglesias",
+    "location": { "lat": -27.25238, "lng": -65.55066, "accuracy": "edificio", "source": { "label": "OpenStreetMap, node 3840924504", "url": "https://www.openstreetmap.org/node/3840924504", "date": "2026-11-01" } },
+    "sources": [{ "label": "OpenStreetMap vía Mapcarta", "url": "https://mapcarta.com/es/N3840924504" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["address", "phone", "hours"]
+  },
+  {
+    "id": "comuna-villa-quinteros",
+    "name": "Comuna de Villa Quinteros",
+    "category": "comuna",
+    "description": "Canal de novedades y comunicación de la comuna.",
+    "links": [{ "label": "Facebook de la Comuna", "url": "https://www.facebook.com/comunavillaquinteros/" }],
+    "sources": [{ "label": "Facebook de la Comuna", "url": "https://www.facebook.com/comunavillaquinteros/" }],
+    "verifiedAt": "2026-11-01",
+    "pending": ["address", "phone", "hours", "location"],
+    "dataNote": "La ubicación exacta del edificio comunal requiere confirmación."
+  }
+]

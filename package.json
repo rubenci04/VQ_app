@@ -19,6 +19,7 @@
     "vapid:generate": "node scripts/generate-vapid.mjs",
     "schedules:fetch": "tsx scripts/import-schedules/fetch.ts",
     "schedules:import": "tsx scripts/import-schedules/index.ts",
+    "schedules:derive-vq": "node scripts/import-schedules/from-rio-seco.mjs",
     "brand:build": "tsx scripts/brand/build-assets.ts",
     "brand:palette": "tsx scripts/brand/palette.ts",
     "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.api.jsonc",

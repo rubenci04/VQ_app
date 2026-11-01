@@ -10,7 +10,7 @@
  *  - Nada del contenido se guarda en cachés.
  */
 const PUSH_FALLBACK = { title: 'VQ App', body: 'Hay novedades en tu comunidad. Tocá para verlas.', url: '/', id: 0, urgent: false }
-const PUSH_ICON = '/icons/icon-192-v2.png'
+const PUSH_ICON = '/icons/icon-192-v3.png'
 
 /** Acepta solo rutas internas de la aplicación: jamás un enlace externo. */
 function safeAppPath(value) {

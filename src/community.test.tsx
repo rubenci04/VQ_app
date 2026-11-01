@@ -124,7 +124,7 @@ describe('Inicio', () => {
     expect(await screen.findByRole('heading', { name: 'Próximo colectivo' })).toBeInTheDocument()
     expect((await screen.findAllByRole('listitem')).length).toBeGreaterThan(5)
     expect(await screen.findByRole('link', { name: 'Llamar a Comisaría de Río Seco' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Escuchar Radio Activa/ })).toHaveAttribute('href', LINKS.radios.activa)
+    expect(screen.getByRole('link', { name: /San Martín FM/ })).toHaveAttribute('href', LINKS.radios.sanMartin)
     expect(screen.getByRole('link', { name: /capital|pesebres/i })).toHaveAttribute('href', '/pueblo/tradicion-pesebres')
   })
   it('mantiene estados vacíos solo donde faltan datos y no inventa noticias', async () => {
