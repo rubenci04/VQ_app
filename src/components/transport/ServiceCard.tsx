@@ -24,13 +24,16 @@ export function ServiceCard({ occurrence: o, companies, stops, nowMinutes }: Pro
   const viaRioSeco = s.routeName?.includes('vía Río Seco')
 
   return (
-    <Card className="animate-rise flex flex-col gap-3">
+    <Card className="animate-rise flex flex-col gap-3 border-orange-bright/35 bg-gradient-to-br from-card via-card to-orange-wash">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-3xl font-extrabold tabular-nums leading-none">
             {approximate && <span aria-hidden>~</span>}
             {formatClock(o.departureAbs)}
             {nextDay && <span className="ml-1.5 align-middle text-xs font-semibold text-muted-foreground">madrugada (día de servicio anterior)</span>}
+          </p>
+          <p className="mt-2 inline-flex rounded-full bg-orange-soft px-3 py-1 text-sm font-extrabold text-orange">
+            {company} · {s.serviceType === 'común' ? 'Común' : s.serviceType === 'semirrápido' ? 'Semirrápido' : s.serviceType}
           </p>
           {untilDeparture !== undefined && untilDeparture >= 0 && (
             <p className="mt-1 flex items-center gap-1 text-sm font-semibold text-accent">
@@ -88,8 +91,6 @@ export function ServiceCard({ occurrence: o, companies, stops, nowMinutes }: Pro
       )}
 
       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <Badge>{company}</Badge>
-        <Badge>{s.serviceType}</Badge>
         <span>
           Fuente:{' '}
           <a className="underline underline-offset-2" href={s.source.url} target="_blank" rel="noopener noreferrer">

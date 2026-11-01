@@ -36,7 +36,7 @@ function ThemeToggle() {
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   cn(
     'flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition',
-    isActive ? 'bg-primary text-primary-foreground shadow-sm' : 'text-foreground hover:bg-muted',
+    isActive ? 'bg-orange text-orange-foreground shadow-sm' : 'text-foreground hover:bg-orange-soft',
   )
 
 /** Una notificación tocada con la app ya abierta pide al router ir al contenido exacto (mensaje del service worker). */
@@ -60,7 +60,7 @@ export function AppShell() {
   useNotificationNavigation()
   return (
     <div className="min-h-dvh md:grid md:grid-cols-[17rem_1fr]">
-      <aside className="hidden border-r border-border bg-card/60 p-5 md:sticky md:top-0 md:flex md:h-dvh md:flex-col md:gap-6">
+      <aside className="hidden border-r-2 border-orange-bright/35 bg-gradient-to-b from-orange-wash via-card to-accent-soft p-5 md:sticky md:top-0 md:flex md:h-dvh md:flex-col md:gap-6">
         <Brand />
         <nav aria-label="Secciones" className="flex flex-col gap-1">
           {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
@@ -77,7 +77,7 @@ export function AppShell() {
       </aside>
 
       <div className="flex min-w-0 flex-col">
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-border bg-background/90 px-4 py-2 backdrop-blur md:hidden">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b-2 border-orange-bright/50 bg-orange-wash/90 px-4 py-2 backdrop-blur md:hidden">
           <Brand />
           <ThemeToggle />
         </header>
@@ -93,7 +93,7 @@ export function AppShell() {
 
       <nav
         aria-label="Navegación principal"
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-orange-bright/40 bg-orange-wash/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
       >
         <ul className="mx-auto grid max-w-lg grid-cols-5">
           {BOTTOM_NAV.map(({ to, label, short, icon: Icon }) => (
@@ -104,13 +104,13 @@ export function AppShell() {
                 className={({ isActive }) =>
                   cn(
                     'flex min-h-16 flex-col items-center justify-center gap-1 text-[0.7rem] font-semibold transition',
-                    isActive ? 'text-primary' : 'text-muted-foreground',
+                    isActive ? 'text-orange' : 'text-muted-foreground',
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <span className={cn('grid h-7 w-14 place-items-center rounded-full transition', isActive && 'bg-primary/15')}>
+                    <span className={cn('grid h-7 w-14 place-items-center rounded-full transition', isActive && 'bg-orange-soft')}>
                       <Icon className="size-5" aria-hidden />
                     </span>
                     <span aria-label={label}>{short ?? label}</span>

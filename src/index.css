@@ -7,18 +7,20 @@
  * Los tonos de texto son más oscuros para conservar contraste legible.
  */
 :root {
-  --background: #f6faff;
+  --background: #fffaf3;
   --foreground: #0b2d42;
   --card: #ffffff;
-  --muted: #e3f2fc;
+  --muted: #fff0dd;
   --muted-foreground: #42596a;
-  --border: #bbd8e9;
+  --border: #e9d5bd;
   --brand: #006eae;
   --primary: #006eae;
   --primary-foreground: #ffffff;
   --accent: #075b91;
   --accent-soft: #dceefa;
-  --orange: #b95e00;
+  --orange: #aa5100;
+  --orange-bright: #ff9700;
+  --orange-wash: #fff8ec;
   --orange-foreground: #ffffff;
   --orange-soft: #fff0d9;
   --warning: #8f4300;
@@ -42,7 +44,9 @@
   --primary-foreground: #03141d;
   --accent: #7fc8f1;
   --accent-soft: #0f2e40;
-  --orange: #ffad39;
+  --orange: #ffb454;
+  --orange-bright: #ff9700;
+  --orange-wash: #281b12;
   --orange-foreground: #1d0c00;
   --orange-soft: #3a2412;
   --warning: #ffb26b;
@@ -67,6 +71,8 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-orange: var(--orange);
+  --color-orange-bright: var(--orange-bright);
+  --color-orange-wash: var(--orange-wash);
   --color-orange-foreground: var(--orange-foreground);
   --color-orange-soft: var(--orange-soft);
   --color-warning: var(--warning);
@@ -86,7 +92,7 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--background);
+    background: radial-gradient(circle at 88% 3%, color-mix(in srgb, var(--orange-bright) 12%, transparent), transparent 28rem), var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
     line-height: 1.55;

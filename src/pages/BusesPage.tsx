@@ -7,6 +7,8 @@ import { BusSearchForm } from '@/components/transport/BusSearchForm'
 import { NoSchedules } from '@/components/transport/NoSchedules'
 import { ServiceCard } from '@/components/transport/ServiceCard'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
+import { LINKS } from '@/config/links'
 import { useData } from '@/data/repository/DataContext'
 import type { Holiday, TransportData } from '@/domain/types'
 import { classifyDay, DAY_TYPE_LABEL } from '@/features/transport/dayType'
@@ -89,6 +91,11 @@ export default function BusesPage() {
   return (
     <>
       <PageHeader icon={Bus} title="Colectivos" subtitle="Recorridos desde y hacia Villa Quinteros · hora de Tucumán" />
+      <Card className="mb-5 border-orange-bright/40 bg-orange-wash text-sm">
+        Los horarios cargados identifican la empresa y el tipo de servicio: Exprebus común o semirrápido.{' '}
+        <a href={LINKS.transport.tesaRoute} target="_blank" rel="noopener noreferrer" className="font-semibold text-orange underline underline-offset-2">TESA también pasa por Villa Quinteros</a>,
+        pero aún no contamos con una hora de paso local verificable para agregarla a los resultados.
+      </Card>
 
       {favorites.length > 0 && (
         <Section title="Mis rutas">

@@ -14,7 +14,7 @@ import { APP } from '@/config/app'
 import { LINKS } from '@/config/links'
 import { NAV_ITEMS } from '@/config/nav'
 import { useData } from '@/data/repository/DataContext'
-import type { Holiday, TransportData } from '@/domain/types'
+import type { Holiday, Locality, TransportData } from '@/domain/types'
 import { DEFAULT_QUERY, queryToParams, swapDirection, type BusQuery } from '@/features/transport/query'
 import { findNext } from '@/features/transport/search'
 import { formatClock, getLocalParts } from '@/features/transport/time'
@@ -45,7 +45,8 @@ function Hero({ now }: { now: Date }) {
         fetchPriority="high"
         className="absolute inset-0 size-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/70 to-night/10" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/75 to-orange-bright/25" aria-hidden />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_16%,rgba(255,151,0,0.38),transparent_48%)]" aria-hidden />
       <div className="relative flex min-h-[22rem] flex-col justify-end p-6 sm:min-h-[26rem] sm:p-8">
         <p className="text-sm font-semibold opacity-95 first-letter:uppercase">{formatLongDate(now)}</p>
         <h1 id="bienvenida" className="font-display mt-1 text-3xl font-extrabold leading-tight sm:text-4xl">
@@ -89,7 +90,7 @@ function QuickBus() {
 
 function QuickBusBody({ data, query, now, onChange }: { data: { transport: TransportData; holidays: Holiday[] }; query: BusQuery; now: Date; onChange: (q: BusQuery) => void }) {
   const { transport, holidays } = data
-  const withData = transport.localities.filter((l) => l.status === 'verificado')
+  const localities = transport.localities
   const locality = transport.localities.find((l) => l.id === query.localityId)
   const nowMinutes = getLocalParts(now).minutes
   const result = useMemo(() => findNext(transport.services, { ...query, mode: 'next' }, now, holidays, 3), [transport.services, query, now, holidays])
@@ -97,15 +98,15 @@ function QuickBusBody({ data, query, now, onChange }: { data: { transport: Trans
   const stopName = (id: string) => transport.stops.find((s) => s.id === id)?.name ?? id
 
   return (
-    <Card className="space-y-3">
+    <Card className="space-y-3 border-orange-bright/45 bg-gradient-to-br from-orange-wash via-card to-accent-soft">
       <div className="flex items-end gap-2">
         <div className="grid flex-1 grid-cols-[1fr_auto_1fr] items-end gap-2">
           <div>
             <span className="mb-1 block text-xs font-semibold text-muted-foreground">Desde</span>
             {from ? (
-              <p className="min-h-11 rounded-xl bg-muted px-3 py-2.5 font-bold">Villa Quinteros</p>
+              <p className="min-h-11 rounded-xl bg-orange-soft px-3 py-2.5 font-bold">Villa Quinteros</p>
             ) : (
-              <LocalitySelect label="Desde" value={query.localityId} onChange={(id) => onChange({ ...query, localityId: id })} options={withData} />
+              <LocalitySelect label="Desde" value={query.localityId} onChange={(id) => onChange({ ...query, localityId: id })} options={localities} />
             )}
           </div>
           <Button type="button" variant="outline" size="icon" aria-label="Invertir origen y destino" onClick={() => onChange({ ...query, direction: swapDirection(query.direction) })}>
@@ -114,16 +115,20 @@ function QuickBusBody({ data, query, now, onChange }: { data: { transport: Trans
           <div>
             <span className="mb-1 block text-xs font-semibold text-muted-foreground">Hacia</span>
             {from ? (
-              <LocalitySelect label="Hacia" value={query.localityId} onChange={(id) => onChange({ ...query, localityId: id })} options={withData} />
+              <LocalitySelect label="Hacia" value={query.localityId} onChange={(id) => onChange({ ...query, localityId: id })} options={localities} />
             ) : (
-              <p className="min-h-11 rounded-xl bg-muted px-3 py-2.5 font-bold">Villa Quinteros</p>
+              <p className="min-h-11 rounded-xl bg-orange-soft px-3 py-2.5 font-bold">Villa Quinteros</p>
             )}
           </div>
         </div>
       </div>
 
       {result.results.length === 0 ? (
-        <p className="rounded-xl bg-muted p-3 text-sm">No hay próximos servicios para {locality?.name ?? 'esta ruta'}. Probá en la búsqueda completa.</p>
+        <p className="rounded-xl bg-orange-soft p-3 text-sm">
+          {locality?.status === 'sin-datos'
+            ? `Todavía no hay horarios verificables entre Villa Quinteros y ${locality.name} en esta fuente.`
+            : `No hay próximos servicios para ${locality?.name ?? 'esta ruta'}. Probá en la búsqueda completa.`}
+        </p>
       ) : (
         <>
           {result.startsTomorrow && <p className="text-xs text-muted-foreground">No quedan más servicios hoy. Estos son los primeros de mañana.</p>}
@@ -141,10 +146,11 @@ function QuickBusBody({ data, query, now, onChange }: { data: { transport: Trans
                       {stopName(o.service.originStopId)} → {stopName(o.service.destinationStopId)}
                       {o.arrivalAbs !== undefined && ` · llega ${formatClock(o.arrivalAbs)}`}
                     </p>
+                    <p className="mt-1 text-xs font-bold text-orange">{transport.companies.find((company) => company.id === o.service.companyId)?.name ?? o.service.companyId} · {o.service.serviceType === 'común' ? 'Común' : 'Semirrápido'}</p>
                   </div>
                   <div className="text-right text-xs">
                     {wait >= 0 && wait < 120 && <p className="font-bold text-accent">{wait === 0 ? 'Sale ahora' : `en ${wait} min`}</p>}
-                    <Badge tone={o.service.precision === 'approximate' ? 'warning' : 'info'}>{o.service.precision === 'approximate' ? 'Aproximado' : o.service.serviceType}</Badge>
+                    <Badge tone={o.service.precision === 'approximate' || o.service.routeName?.includes('vía Río Seco') ? 'warning' : 'info'}>{o.service.routeName?.includes('vía Río Seco') ? 'Vía Río Seco' : o.service.precision === 'approximate' ? 'Aproximado' : 'Confirmado'}</Badge>
                   </div>
                 </li>
               )
@@ -156,12 +162,12 @@ function QuickBusBody({ data, query, now, onChange }: { data: { transport: Trans
   )
 }
 
-function LocalitySelect({ label, value, onChange, options }: { label: string; value: string; onChange: (id: string) => void; options: { id: string; name: string }[] }) {
+function LocalitySelect({ label, value, onChange, options }: { label: string; value: string; onChange: (id: string) => void; options: Locality[] }) {
   return (
     <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-11 w-full rounded-xl border border-border bg-background px-2 font-bold text-foreground">
       {options.map((o) => (
         <option key={o.id} value={o.id}>
-          {o.name}
+          {o.name}{o.status === 'sin-datos' ? ' · sin horario cargado' : ''}
         </option>
       ))}
     </select>
@@ -261,9 +267,9 @@ export default function HomePage() {
               <li key={to}>
                 <Link
                   to={to}
-                  className="flex h-full flex-col items-center gap-2 rounded-[var(--radius-card)] border border-border bg-card px-2 py-4 text-center text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:bg-muted active:scale-95"
+                  className="flex h-full flex-col items-center gap-2 rounded-[var(--radius-card)] border border-orange-bright/25 bg-gradient-to-br from-card to-orange-wash px-2 py-4 text-center text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-orange-bright hover:bg-orange-soft active:scale-95"
                 >
-                  <span className="grid size-11 place-items-center rounded-xl bg-accent-soft text-accent">
+                  <span className="grid size-11 place-items-center rounded-xl bg-orange-soft text-orange">
                     <Icon className="size-6" aria-hidden />
                   </span>
                   {item.label}

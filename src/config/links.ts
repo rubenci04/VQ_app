@@ -10,6 +10,7 @@ export const LINKS = {
   transport: {
     reference: 'https://colectivostucuman.com.ar/',
     concepcion: 'https://colectivostucuman.com.ar/',
+    tesaRoute: 'https://colectucus.com.ar/lineas/tesa/',
   },
 } as const
 

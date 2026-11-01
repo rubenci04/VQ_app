@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { LocalJsonRepository } from '@/data/repository/localJsonRepository'
 import { HUB_ID } from '@/features/transport/slug'
+import { DEFAULT_QUERY } from '@/features/transport/query'
 
 const repository = new LocalJsonRepository()
 
@@ -26,6 +27,8 @@ describe('contenido de Villa Quinteros', () => {
     expect(transport.services.some((service) => service.destinationStopId === HUB_ID)).toBe(true)
     expect(transport.localities.some((locality) => locality.id === 'monteros')).toBe(true)
     expect(transport.localities).toHaveLength(20)
+    expect(DEFAULT_QUERY.direction).toBe('from-rio-seco')
+    expect(DEFAULT_QUERY.mode).toBe('all')
     expect(transport.services.some((service) => service.localityId === 'concepcion' && service.direction === 'from-rio-seco' && service.routeName?.includes('vía Río Seco'))).toBe(true)
     expect(transport.services.some((service) => service.localityId === 'aguilares' && service.direction === 'to-rio-seco' && service.routeName?.includes('vía Río Seco'))).toBe(true)
     expect(transport.localities.find((locality) => locality.id === 'lules')?.status).toBe('sin-datos')

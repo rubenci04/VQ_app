@@ -34,14 +34,14 @@ export function BusSearchForm({ query, localities, companies, serviceTypes, isFa
   const from = query.direction === 'from-rio-seco'
 
   return (
-    <Card className="mb-5 space-y-4">
+    <Card className="mb-5 space-y-4 border-orange-bright/45 bg-gradient-to-br from-orange-wash via-card to-accent-soft">
       <div className="flex items-center gap-2">
         <div className="grid flex-1 gap-1.5" aria-live="polite">
-          <div className="rounded-xl bg-muted px-3 py-2">
+          <div className="rounded-xl bg-orange-soft px-3 py-2">
             <span className="block text-xs font-semibold text-muted-foreground">Desde</span>
             <span className="font-display text-lg font-bold">{from ? 'Villa Quinteros' : locality}</span>
           </div>
-          <div className="rounded-xl bg-muted px-3 py-2">
+          <div className="rounded-xl bg-orange-soft px-3 py-2">
             <span className="block text-xs font-semibold text-muted-foreground">Hacia</span>
             <span className="font-display text-lg font-bold">{from ? locality : 'Villa Quinteros'}</span>
           </div>
