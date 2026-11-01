@@ -1,0 +1,70 @@
+import { lazy, Suspense } from 'react'
+import { Navigate, Route, Routes } from 'react-router'
+import { AppShell } from '@/components/layout/AppShell'
+import { EmptyState, LoadingState } from '@/components/shared/States'
+import { Compass } from 'lucide-react'
+
+const HomePage = lazy(() => import('@/pages/HomePage'))
+const BusesPage = lazy(() => import('@/pages/BusesPage'))
+const HeritagePage = lazy(() => import('@/pages/HeritagePages'))
+const HeritageDetailPage = lazy(() => import('@/pages/HeritagePages').then((m) => ({ default: m.HeritageDetailPage })))
+// El panel administrativo es un módulo aparte (carga diferida): el público no descarga nada de él.
+const AdminApp = lazy(() => import('@/admin/AdminApp'))
+const MapPage = lazy(() => import('@/pages/MapPage'))
+const PlaceDetailPage = lazy(() => import('@/pages/PlaceDetailPage'))
+const ServicesPage = lazy(() => import('@/pages/ServicesPage'))
+const RadiosPage = lazy(() => import('@/pages/RadiosPage'))
+const NewsPage = lazy(() => import('@/pages/ContentPages').then((m) => ({ default: m.NewsPage })))
+const AlertsPage = lazy(() => import('@/pages/ContentPages').then((m) => ({ default: m.AlertsPage })))
+const AgendaPage = lazy(() => import('@/pages/ContentPages').then((m) => ({ default: m.AgendaPage })))
+const ObituariesPage = lazy(() => import('@/pages/ContentPages').then((m) => ({ default: m.ObituariesPage })))
+const NewsDetailPage = lazy(() => import('@/pages/DetailPages').then((m) => ({ default: m.NewsDetailPage })))
+const AlertDetailPage = lazy(() => import('@/pages/DetailPages').then((m) => ({ default: m.AlertDetailPage })))
+const ObituaryDetailPage = lazy(() => import('@/pages/DetailPages').then((m) => ({ default: m.ObituaryDetailPage })))
+const SettingsPage = lazy(() => import('@/pages/NotificationPages').then((m) => ({ default: m.SettingsPage })))
+const NotificationSettingsPage = lazy(() => import('@/pages/NotificationPages').then((m) => ({ default: m.NotificationSettingsPage })))
+const WastePage = lazy(() => import('@/pages/WastePage'))
+const ComunaPage = lazy(() => import('@/pages/InfoPages').then((m) => ({ default: m.ComunaPage })))
+const MorePage = lazy(() => import('@/pages/InfoPages').then((m) => ({ default: m.MorePage })))
+const AboutPage = lazy(() => import('@/pages/InfoPages').then((m) => ({ default: m.AboutPage })))
+
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route
+        path="admin/*"
+        element={
+          <Suspense fallback={<div className="p-6"><LoadingState /></div>}>
+            <AdminApp />
+          </Suspense>
+        }
+      />
+      <Route element={<AppShell />}>
+        <Route index element={<HomePage />} />
+        <Route path="colectivos" element={<BusesPage />} />
+        <Route path="pueblo" element={<HeritagePage />} />
+        <Route path="nuestro-pueblo" element={<Navigate to="/pueblo" replace />} />
+        <Route path="pueblo/:id" element={<HeritageDetailPage />} />
+        <Route path="servicios" element={<ServicesPage />} />
+        <Route path="servicios/:id" element={<PlaceDetailPage />} />
+        <Route path="mapa" element={<MapPage />} />
+        <Route path="noticias" element={<NewsPage />} />
+        <Route path="noticias/:id" element={<NewsDetailPage />} />
+        <Route path="alertas" element={<AlertsPage />} />
+        <Route path="alertas/:id" element={<AlertDetailPage />} />
+        <Route path="residuos" element={<WastePage />} />
+        <Route path="radios" element={<RadiosPage />} />
+        <Route path="agenda" element={<AgendaPage />} />
+        <Route path="obituarios" element={<ObituariesPage />} />
+        <Route path="obituarios/:id" element={<ObituaryDetailPage />} />
+        <Route path="configuracion" element={<SettingsPage />} />
+        <Route path="configuracion/notificaciones" element={<NotificationSettingsPage />} />
+        <Route path="comuna" element={<ComunaPage />} />
+        <Route path="acerca" element={<AboutPage />} />
+        <Route path="mas" element={<MorePage />} />
+        <Route path="inicio" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<EmptyState icon={Compass} title="Página no encontrada">Revisá la dirección o volvé al inicio.</EmptyState>} />
+      </Route>
+    </Routes>
+  )
+}

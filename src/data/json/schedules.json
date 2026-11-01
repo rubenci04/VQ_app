@@ -1,0 +1,13 @@
+{
+  "source": {
+    "label": "Colectivos Tucumán",
+    "url": "https://colectivostucuman.com.ar/",
+    "reuseAuthorized": true
+  },
+  "fetchedAt": "2026-10-28T13:41:20.030Z",
+  "notes": [
+    "Horarios de Villa Quinteros pendientes de verificar; no se reutilizan los horarios de Río Seco."
+  ],
+  "companies": [],
+  "pages": []
+}

@@ -1,0 +1,166 @@
+import { defaultClassifier, type Classifier } from '../shared/classifier'
+import { contentHash, isNearDuplicate } from '../shared/dedupe'
+import { deriveTitle, truncate } from '../shared/text'
+import type { Actor } from './env'
+import { historyStatement } from './history'
+
+export type Origin = 'api' | 'assisted' | 'manual'
+
+export interface SourceRow {
+  id: string
+  kind: 'facebook' | 'instagram' | 'manual'
+  name: string
+  url: string | null
+  mode: 'api' | 'assisted' | 'manual'
+  enabled: number
+  trusted: number
+  config_json: string
+  poll_interval_seconds: number
+  cursor: string | null
+  status: string
+  last_checked_at: string | null
+  last_success_at: string | null
+  last_error: string | null
+  consecutive_failures: number
+  next_attempt_at: string | null
+}
+
+/** Publicación normalizada, independiente de la fuente de origen. */
+export interface RawPost {
+  externalId: string
+  url?: string | null
+  title?: string
+  body: string
+  publishedAt: string
+  media?: string[]
+  /** Fuente citada por el editor (p. ej. un medio). Si falta se usa el nombre de la fuente configurada. */
+  sourceLabel?: string | null
+  /** false = `publishedAt` es la fecha de registro y no la original (no se muestra como fecha de publicación). */
+  dateVerified?: boolean
+  contentType?: string | null
+}
+
+export type IngestResult =
+  | { outcome: 'inserted'; postId: number; status: 'published' | 'pending' | 'draft'; categories: string[]; alertId: number | null; obituaryId: number | null }
+  | { outcome: 'duplicate'; reason: 'external-id' | 'url' | 'content-hash' | 'near-duplicate'; ofPostId: number }
+
+export interface IngestOptions {
+  source: SourceRow
+  origin: Origin
+  actor: Actor
+  now: Date
+  classifier?: Classifier
+  /** Guardar como borrador (no visible). Los posibles obituarios igual quedan en la cola de revisión. */
+  draft?: boolean
+  /** Carga retroactiva: nunca genera alertas ni notificaciones (los obituarios igual esperan a una persona). */
+  historical?: boolean
+  /** Fuerza el estado de revisión pendiente (la persona decidió no publicar todavía). */
+  hold?: boolean
+}
+
+/** Cuántas publicaciones recientes se comparan por similitud (acota el costo de lectura en D1). */
+const NEAR_DUPLICATE_WINDOW = 40
+
+export type Duplicate = Extract<IngestResult, { outcome: 'duplicate' }>
+
+/** Comprueba, sin escribir nada, si una publicación ya existe: id estable, URL, huella de contenido o texto muy similar. */
+export async function findDuplicate(db: D1Database, sourceId: string, raw: RawPost, title: string, body: string): Promise<{ duplicate: Duplicate | null; hash: string }> {
+  const byId = await db.prepare('SELECT id FROM posts WHERE source_id = ? AND external_id = ?').bind(sourceId, raw.externalId).first<{ id: number }>()
+  if (byId) return { duplicate: { outcome: 'duplicate', reason: 'external-id', ofPostId: byId.id }, hash: '' }
+  if (raw.url) {
+    const byUrl = await db.prepare('SELECT id FROM posts WHERE url = ? LIMIT 1').bind(raw.url).first<{ id: number }>()
+    if (byUrl) return { duplicate: { outcome: 'duplicate', reason: 'url', ofPostId: byUrl.id }, hash: '' }
+  }
+  const hash = await contentHash(`${title}
+${body}`)
+  const byHash = await db.prepare("SELECT id FROM posts WHERE content_hash = ? AND status != 'deleted' LIMIT 1").bind(hash).first<{ id: number }>()
+  if (byHash) return { duplicate: { outcome: 'duplicate', reason: 'content-hash', ofPostId: byHash.id }, hash }
+  const recent = await db
+    .prepare("SELECT id, title, body FROM posts WHERE status != 'deleted' ORDER BY published_at DESC LIMIT ?")
+    .bind(NEAR_DUPLICATE_WINDOW)
+    .all<{ id: number; title: string; body: string }>()
+  const similar = recent.results.find((p) => isNearDuplicate(`${p.title} ${p.body}`, `${title} ${body}`))
+  if (similar) return { duplicate: { outcome: 'duplicate', reason: 'near-duplicate', ofPostId: similar.id }, hash }
+  return { duplicate: null, hash }
+}
+
+/**
+ * Pipeline de ingesta (idéntico para API, importación asistida y carga manual):
+ * 1) deduplicar (id estable, URL, huella, similitud)  2) clasificar  3) decidir visibilidad
+ * 4) guardar publicación + categorías + propuestas (alerta/obituario) + historial, en un único lote.
+ */
+export async function ingestPost(db: D1Database, raw: RawPost, opts: IngestOptions): Promise<IngestResult> {
+  const { source, origin, actor, now } = opts
+  const classifier = opts.classifier ?? defaultClassifier
+  const body = raw.body.trim()
+  const title = (raw.title?.trim() || deriveTitle(body)).slice(0, 200)
+
+  // ---- 1) deduplicación ----
+  const dup = await findDuplicate(db, source.id, raw, title, body)
+  if (dup.duplicate) return dup.duplicate
+  const hash = dup.hash
+
+  // ---- 2) clasificación ----
+  const result = classifier.classify({ title, body })
+  const isObituary = result.obituary !== null
+
+  // ---- 3) visibilidad ----
+  // Posibles obituarios y fuentes no confiables quedan ocultos hasta que una persona los apruebe.
+  const status: 'published' | 'pending' | 'draft' = isObituary ? 'pending' : opts.draft ? 'draft' : !source.trusted || opts.hold ? 'pending' : 'published'
+  // Una nota publicada por la redacción cuenta como revisada (la persona la escribió y la vio publicada); la duda de clasificación
+  // solo se marca en borradores, lo importado automáticamente y los posibles obituarios (que siempre pasan por la cola).
+  const reviewState =
+    status === 'pending' ? 'needs_review' : origin === 'manual' && status === 'published' ? 'approved' : result.needsReview ? 'needs_review' : origin === 'manual' ? 'approved' : 'unreviewed'
+
+  // ---- 4) persistencia ----
+  const nowIso = now.toISOString()
+  const insert = await db
+    .prepare(
+      `INSERT INTO posts (source_id, external_id, url, source_label, title, body, media_json, published_at, imported_at, origin, content_hash, status, review_state, classifier, created_by, date_verified, historical, content_type)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    )
+    .bind(source.id, raw.externalId, raw.url ?? null, raw.sourceLabel?.trim() || null, title, body, JSON.stringify(raw.media ?? []), raw.publishedAt, nowIso, origin, hash, status, reviewState, result.classifier, actor.id, raw.dateVerified === false ? 0 : 1, opts.historical ? 1 : 0, raw.contentType ?? null)
+    .run()
+  const postId = Number(insert.meta.last_row_id)
+
+  const statements: D1PreparedStatement[] = result.categories.map((c) =>
+    db
+      .prepare('INSERT INTO post_categories (post_id, category_id, confidence, proposed_by, confirmed, reasons_json) VALUES (?,?,?,?,0,?)')
+      .bind(postId, c.id, c.confidence, 'rules', JSON.stringify(c.reasons)),
+  )
+
+  let alertId: number | null = null
+  let obituaryId: number | null = null
+  const sourceUrl = raw.url ?? source.url
+
+  // Lo histórico no propone avisos: un aviso vigente nace de una publicación actual, no de una recuperada.
+  if (result.alert && !opts.historical) {
+    const a = result.alert
+    const expires = new Date(new Date(raw.publishedAt).getTime() + a.suggestedHours * 3_600_000).toISOString()
+    const r = await db
+      .prepare(
+        `INSERT INTO alerts (post_id, kind, severity, priority, title, body, source_url, starts_at, expires_at, confirmation, proposed_reason, created_at)
+         VALUES (?,?,?,?,?,?,?,?,?, 'proposed', ?, ?)`,
+      )
+      .bind(postId, a.kind, a.severity, a.priority, title, truncate(body, 600), sourceUrl, raw.publishedAt, expires, a.reason, nowIso)
+      .run()
+    alertId = Number(r.meta.last_row_id)
+    statements.push(historyStatement(db, { entityType: 'alert', entityId: alertId, action: 'proposed', actor, after: { severity: a.severity, kind: a.kind }, note: a.reason }, now))
+  }
+
+  if (result.obituary) {
+    const r = await db
+      .prepare(`INSERT INTO obituaries (post_id, name, message, source_url, state, created_at) VALUES (?,?,?,?, 'pending', ?)`)
+      .bind(postId, result.obituary.nameSuggestion ?? '', truncate(body, 600), sourceUrl, nowIso)
+      .run()
+    obituaryId = Number(r.meta.last_row_id)
+    statements.push(historyStatement(db, { entityType: 'obituary', entityId: obituaryId, action: 'proposed', actor, note: 'Detectado automáticamente; requiere validación humana' }, now))
+  }
+
+  statements.push(
+    historyStatement(db, { entityType: 'post', entityId: postId, action: 'ingested', actor, after: { origin, status, categories: result.categories.map((c) => c.id) }, note: `clasificador ${result.classifier}` }, now),
+  )
+  await db.batch(statements)
+
+  return { outcome: 'inserted', postId, status, categories: result.categories.map((c) => c.id), alertId, obituaryId }
+}
